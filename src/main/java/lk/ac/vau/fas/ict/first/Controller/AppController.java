@@ -12,59 +12,62 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-
-
-
 @RestController
 @RequestMapping("/app")
 public class AppController {
 
-    //Create some Student objects
-    Student Bob = new Student("2021ICT01","Bob Marely",23,"IT", 3.21);
-    Student Amal = new Student("2020ICT02", "Amal Perera",24,"AMC",3.41);
-	Student Kamal = new Student("2022ICT03", "Kamal Gunasinghe",22,"AMC",2.91);
+    // Create some Student objects
+    Student Bob = new Student("2021ICT01", "Bob Marely", 23, "IT", 3.21);
+    Student Amal = new Student("2020ICT02", "Amal Perera", 24, "AMC", 3.41);
+    Student Kamal = new Student("2022ICT03", "Kamal Gunasinghe", 22, "AMC", 2.91);
     List<Student> students = new ArrayList<Student>();
 
-    //A method to return a student
+    public AppController(){
+        students.add(Bob);
+        students.add(Amal);
+        students.add(Kamal);
+    }
+
+    // A method to return a student
     @GetMapping("/student")
     public Student getStudent() {
         return Bob;
     }
 
-    //return multiple student
+    // return multiple student
     @GetMapping("/all-students")
     public List<Student> getAll() {
-        students.add(Bob);
-        students.add(Amal);
-        students.add(Kamal);
         return students;
     }
 
-    //Find a Student from the list by regNo
+    // Find a Student from the list by regNo
     @GetMapping("/student/{regno}")
     public Student getStudent(@PathVariable("regno") String regNo) {
-        for (Student student: students) {
-            if(student.getRegNo().equals(regNo)) {
+        for (Student student : students) {
+            if (student.getRegNo().equals(regNo)) {
                 return student;
             }
         }
         return null;
     }
 
-    //Find the students who age is between 20 and 23
+    // Find the students who age is between 20 and 23
     @GetMapping("/student/by-age")
     public List<Student> getStudentByAge() {
-        students.add(Bob);
-        students.add(Amal);
-        students.add(Kamal);
         List<Student> stu = new ArrayList<Student>();
-        for (Student student: students) {
-            if(student.getAge() > 20 && student.getAge() < 23) {
+        for (Student student : students) {
+            if (student.getAge() > 20 && student.getAge() < 23) {
                 stu.add(student);
             }
         }
         return stu;
+    }
+
+    // sort the students by their GPA
+    @GetMapping("/order/all-students")
+    public List<Student> getAllStudents() {
+        students.sort((s1, s2) -> Double.compare(s2.getGpa(), s1.getGpa())); 
+        return students;
     }
 
     @GetMapping("/msg")
@@ -79,13 +82,12 @@ public class AppController {
 
     @GetMapping("/age/{ag}")
     public String myAge(@PathVariable("ag") int age) {
-        return "My age is "+age;
+        return "My age is " + age;
     }
-    
+
     @GetMapping("/course/{uni}/{crs}")
-	public String MyUni(@PathVariable("uni") String university, @PathVariable("crs") String course) {
-		return "My university is "+ university + " and my course is "+ course;
-	}
-    
-    
+    public String MyUni(@PathVariable("uni") String university, @PathVariable("crs") String course) {
+        return "My university is " + university + " and my course is " + course;
+    }
+
 }
