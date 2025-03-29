@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -77,6 +78,22 @@ public class AppController {
     public List<Student> addStudent(@RequestBody Student student) {
         students.add(student);
         return students;
+    }
+
+    // Update student by regNo
+    @PutMapping("/student/update/{regno}")
+    public Student updateStudent(@PathVariable("regno") String regNo, @RequestBody Student updatedStudent) {
+        
+        for (Student student : students) {
+            if (student.getRegNo().equals(regNo)) {
+                student.setName(updatedStudent.getName());
+                student.setAge(updatedStudent.getAge());
+                student.setCourse(updatedStudent.getCourse());
+                student.setGpa(updatedStudent.getGpa());
+                return student; 
+            }
+        }
+        return null;
     }
 
     @GetMapping("/msg")
