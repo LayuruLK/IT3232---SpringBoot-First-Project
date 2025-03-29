@@ -52,6 +52,21 @@ public class AppController {
         return null;
     }
 
+    //Find the students who age is between 20 and 23
+    @GetMapping("/student/by-age")
+    public List<Student> getStudentByAge() {
+        students.add(Bob);
+        students.add(Amal);
+        students.add(Kamal);
+        List<Student> stu = new ArrayList<Student>();
+        for (Student student: students) {
+            if(student.getAge() > 20 && student.getAge() < 23) {
+                stu.add(student);
+            }
+        }
+        return stu;
+    }
+
     @GetMapping("/msg")
     public String myMessage() {
         return "Hello SpringBoot";
