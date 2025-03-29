@@ -41,6 +41,17 @@ public class AppController {
         return students;
     }
 
+    //Find a Student from the list by regNo
+    @GetMapping("/student/{regno}")
+    public Student getStudent(@PathVariable("regno") String regNo) {
+        for (Student student: students) {
+            if(student.getRegNo().equals(regNo)) {
+                return student;
+            }
+        }
+        return null;
+    }
+
     @GetMapping("/msg")
     public String myMessage() {
         return "Hello SpringBoot";
