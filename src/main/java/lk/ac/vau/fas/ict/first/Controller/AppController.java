@@ -21,7 +21,13 @@ public class AppController {
     Student Bob = new Student("2021ICT01","Bob Marely",23,"IT", 3.21);
     Student Amal = new Student("2020ICT02", "Amal Perera",24,"AMC",3.41);
 	Student Kamal = new Student("2022ICT03", "Kamal Gunasinghe",22,"AMC",2.91);
-    
+
+    //A method to return a student
+    @GetMapping("/student")
+    public Student getStudent() {
+        return Bob;
+    }
+
     @GetMapping("/msg")
     public String myMessage() {
         return "Hello SpringBoot";
