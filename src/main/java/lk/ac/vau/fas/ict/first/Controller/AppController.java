@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
@@ -22,7 +24,7 @@ public class AppController {
     Student Kamal = new Student("2022ICT03", "Kamal Gunasinghe", 22, "AMC", 2.91);
     List<Student> students = new ArrayList<Student>();
 
-    public AppController(){
+    public AppController() {
         students.add(Bob);
         students.add(Amal);
         students.add(Kamal);
@@ -66,7 +68,14 @@ public class AppController {
     // sort the students by their GPA
     @GetMapping("/order/all-students")
     public List<Student> getAllStudents() {
-        students.sort((s1, s2) -> Double.compare(s2.getGpa(), s1.getGpa())); 
+        students.sort((s1, s2) -> Double.compare(s2.getGpa(), s1.getGpa()));
+        return students;
+    }
+
+    // add Student
+    @PostMapping("/student/add")
+    public List<Student> addStudent(@RequestBody Student student) {
+        students.add(student);
         return students;
     }
 
