@@ -8,6 +8,7 @@ import lk.ac.vau.fas.ict.first.Model.Student;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -83,17 +84,29 @@ public class AppController {
     // Update student by regNo
     @PutMapping("/student/update/{regno}")
     public Student updateStudent(@PathVariable("regno") String regNo, @RequestBody Student updatedStudent) {
-        
+
         for (Student student : students) {
             if (student.getRegNo().equals(regNo)) {
                 student.setName(updatedStudent.getName());
                 student.setAge(updatedStudent.getAge());
                 student.setCourse(updatedStudent.getCourse());
                 student.setGpa(updatedStudent.getGpa());
-                return student; 
+                return student;
             }
         }
         return null;
+    }
+
+    // Delete a student by registration number
+    @DeleteMapping("/student/delete/{regno}")
+    public String deleteStudent(@PathVariable("regno") String regNo) {
+        for (Student student : students) {
+            if (student.getRegNo().equals(regNo)) {
+                students.remove(student);
+                return "Student with regNo " + regNo + " has been deleted."; 
+            }
+        }
+        return "Student with regNo " + regNo + " not found."; 
     }
 
     @GetMapping("/msg")
