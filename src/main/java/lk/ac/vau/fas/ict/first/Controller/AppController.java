@@ -2,6 +2,9 @@ package lk.ac.vau.fas.ict.first.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import lk.ac.vau.fas.ict.first.Model.Student;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 @RequestMapping("/app")
 public class AppController {
+
+    //Create some Student objects
+    Student Bob = new Student("2021ICT01","Bob Marely",23,"IT", 3.21);
+    Student Amal = new Student("2020ICT02", "Amal Perera",24,"AMC",3.41);
+	Student Kamal = new Student("2022ICT03", "Kamal Gunasinghe",22,"AMC",2.91);
+    
     @GetMapping("/msg")
     public String myMessage() {
         return "Hello SpringBoot";
